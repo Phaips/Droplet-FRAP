@@ -7,4 +7,4 @@ The export.py can be used as a Jython script in Fiji/ImageJ to calculate and exp
 The plotting.py is intended to plot the FRAP curves nicely (since Fiji/ImageJ plots look garbage)
 
 
-![plot](https://github.com/Phaips/DropletFRAP/assets/103127272/6a8242fe-8dc0-4049-ad67-d4b77c7fd838 = 250x250)
+![](https://github.com/Phaips/DropletFRAP/assets/103127272/6a8242fe-8dc0-4049-ad67-d4b77c7fd838)
