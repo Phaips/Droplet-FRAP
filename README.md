@@ -4,7 +4,7 @@ The config.ijm is a Fiji/ImageJ macro intended to properly scale and label the f
 
 The export.py can be used as a Jython script in Fiji/ImageJ to calculate and export (.csv) FRAP intensities from selected ROI's
 
-The plotting.py is intended to plot the FRAP curves nicely (since Fiji/ImageJ plots look garbage)
+The plotting.py is intended to plot the FRAP curves nicely (since Fiji/ImageJ plots look garbage) from the exported data
 
 
 <p align="center">
