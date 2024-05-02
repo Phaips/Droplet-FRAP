@@ -5,24 +5,26 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 csv_file_path = '/path/to/FRAP_data_give_name_here.csv' 
-data = pd.read_csv(csv_file_path).groupby('Time (s)')['Normalized Intensity'].agg(['mean', 'std'])
+data = pd.read_csv(csv_file_path)
+number_of_rois = data['ROI Name'].nunique()
+grouped_data = data.groupby('Time (s)')['Normalized Intensity'].agg(['mean', 'std'])
 
 fig, ax = plt.subplots(figsize=(5,6))
-
-ax.plot(data.index, data['mean'],
+ax.plot(grouped_data.index,
+        grouped_data['mean'],
         label='Average Intensity',
-        color='purple') # We love pink
-
-ax.fill_between(data.index, data['mean'] - data['std'],
-                data['mean'] + data['std'],
+        color='purple')
+ax.fill_between(grouped_data.index,
+                grouped_data['mean'] - grouped_data['std'],
+                grouped_data['mean'] + grouped_data['std'],
                 color='purple',
                 alpha=0.1,
                 label='Standard Deviation')
 
 ax.set_xlabel('Time (s)')
 ax.set_ylabel('Normalized Intensity')
-ax.set_title('FRAP Analysis')
-ax.set_xlim()
+ax.set_title(f'N={number_of_rois}')
+ax.set_xlim(-10, 200)
 ax.legend() 
 
 plt.show()
