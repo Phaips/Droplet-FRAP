@@ -1,6 +1,6 @@
 Three files to create FRAP (Fluorescence Recovery After Photobleaching) curves
 
-The config.ijm is a Fiji/ImageJ macro intended to properly scale and label the data (ideal for biomolecular condensates)
+The config.ijm is a Fiji/ImageJ macro intended to properly scale and label the fluorescence images (ideal for biomolecular condensates)
 
 The export.py can be used as a Jython script in Fiji/ImageJ to calculate and export (.csv) FRAP intensities from selected ROI's
 
