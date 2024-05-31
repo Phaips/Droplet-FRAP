@@ -13,7 +13,7 @@ from ij.gui import Plot
 import math
 import csv
 
-# Define the path where the CSV file will be saved
+# Define the path where the CSV file will be saved!
 output_path = "C:/add/path/here/"
 
 # Get ROIs from ROI Manager
