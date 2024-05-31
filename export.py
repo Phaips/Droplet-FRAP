@@ -14,7 +14,7 @@ import math
 import csv
 
 # Define the path where the CSV file will be saved
-output_path = "C:/path/to/output/"
+output_path = "C:/add/path/here/"
 
 # Get ROIs from ROI Manager
 roi_manager = RoiManager.getInstance()
@@ -23,16 +23,16 @@ roi_list = roi_manager.getRoisAsArray()
 # The last ROI is assumed to be the control ROI
 roi_norm = roi_list[-1]
 
-# Specify up to what frame to fit and plot.
-n_slices = 61
+# Specify up to what frame to fit and plot. IMPORTANT TO SET THIS!!
+n_slices = 153
 
 # Get current image plus and image processor
 current_imp = WindowManager.getCurrentImage()
 stack = current_imp.getImageStack()
 calibration = current_imp.getCalibration()
 
-# Open CSV file for writing at the specified path
-csv_file = open(output_path + "FRAP_data_give_name_here", "w")
+# Open CSV file for writing at the specified path. GIVE YOUR DESIRED FILE NAME!!
+csv_file = open(output_path + "FRAP_data_add_name.csv", "w")
 csv_writer = csv.writer(csv_file, delimiter=',')
 csv_writer.writerow(['ROI Name', 'Time (s)', 'Normalized Intensity'])  # Write header
 
@@ -57,7 +57,18 @@ for roi_FRAP in roi_list[:-1]:  # Exclude the last ROI, which is for normalizati
     bleach_frame = If.index(min_intensity)
     mean_If = sum(If[:bleach_frame]) / bleach_frame
     mean_In = sum(In[:bleach_frame]) / bleach_frame
-    normalized_curve = [(If[i] - min_intensity) / (mean_If - min_intensity) * mean_In / In[i] for i in range(n_slices)]
+
+    # Corrected intensity -> normalization to account for photobleaching from imaging
+    corrected_intensity = [If[i] / In[i] for i in range(n_slices)]
+
+    # Mean corrected pre-bleach intensity
+    mean_corrected_pre_bleach = sum(corrected_intensity[:bleach_frame]) / bleach_frame
+
+    # Normalization
+    normalized_curve = [(corrected_intensity[i] - min(corrected_intensity)) / 
+                        (mean_corrected_pre_bleach - min(corrected_intensity)) 
+                        for i in range(n_slices)]
+
     x = [i * calibration.frameInterval for i in range(n_slices)]
 
     # Write data to CSV
@@ -67,4 +78,4 @@ for roi_FRAP in roi_list[:-1]:  # Exclude the last ROI, which is for normalizati
 # Close the CSV file
 csv_file.close()
 
-IJ.log('Data exported successfully to ' + output_path + 'FRAP_data.csv.')
+IJ.log('Data exported successfully to ' + output_path)
