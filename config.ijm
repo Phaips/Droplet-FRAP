@@ -1,4 +1,4 @@
-# Macro intended to autoscale contrast, set LUT, set scale bar (10uM bottom right), add time stamp, and set propeties (time per frame)
+# Macro intended to autoscale contrast, set LUT, set scale bar (10um bottom right), add time stamp, and set propeties (time per frame)
 # !!! Please adjust the parameters! Especially interval= range= frames= and frame= !!!
 run("Green");
 run("Enhance Contrast", "saturated=0.35");
