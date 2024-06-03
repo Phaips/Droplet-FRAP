@@ -55,8 +55,6 @@ for roi_FRAP in roi_list[:-1]:  # Exclude the last ROI, which is for normalizati
     # Calculate normalized curve
     min_intensity = min(If)
     bleach_frame = If.index(min_intensity)
-    mean_If = sum(If[:bleach_frame]) / bleach_frame
-    mean_In = sum(In[:bleach_frame]) / bleach_frame
 
     # Corrected intensity -> normalization to account for photobleaching from imaging
     corrected_intensity = [If[i] / In[i] for i in range(n_slices)]
